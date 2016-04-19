@@ -1,60 +1,6 @@
 <?php
 
-function http_getheaders () {
- $opts = array(
-  'http'=>array(
-   'method'=>"GET",
-   'header'=>"API-Key: ASIOGFLTLIGK6XVAECAASR625QCUMQ"
-  )
- );
- $context = stream_context_create($opts);
- return $context;
-}
-
-function http_postheaders ($data) {
- $opts = array(
-  'http'=>array(
-   'method'=>"POST",
-   'header'=>"API-Key: ASIOGFLTLIGK6XVAECAASR625QCUMQ",
-   'content' => http_build_query($data)
-  )
- );
- var_dump($opts);
- $context = stream_context_create($opts);
- return $context;
-}
-
-function get_request ($url) {
- $response = file_get_contents($url);
- http_error_check($http_response_header);
- return($response);
-}
-
-function keyget_request ($url) {
- $response = file_get_contents($url, false, http_getheaders());
- http_error_check($http_response_header);
- return($response);
-}
-
-function post_request ($url, $data) {
- $response = file_get_contents($url, false, http_postheaders($data));
- http_error_check($http_response_header);
- return($response);
-}
-
-function json_pretty ($notpretty) {
- $notpretty = json_decode($notpretty);
- $pretty = json_encode($notpretty, JSON_PRETTY_PRINT);
- return $pretty;
-}
-
-function http_error_check ($http_response_header) {
- if ( $http_response_header[0] == "HTTP/1.1 200 OK" ) {
-  return;
- } else {
-  exit($http_response_header[0]);
- }
-}
+include('includes.php');
 
 function account_info () {
  $url = "https://api.vultr.com/v1/account/info";
@@ -137,19 +83,21 @@ function server_bandwidth ($subid) {
  return keyget_request($url); 
 }
 
-function server_create () {
- $numargs = func_num_args();
- if ($numargs < 3) {
-  exit("server_create: Invalid number of arguments");
+function server_create ($arguments) {
+ if (!(array_key_exists('DCID', $arguments) and array_key_exists('VPSPLANID', $arguments) and array_key_exists('OSID', $arguments))) {
+  exit("server_create requires arguments: DCID, VPSPLANID, and OSID");
  }
- $arg_list = func_get_args();
  $url = "https://api.vultr.com/v1/server/create";
- return post_request($url, $arg_list);
+ return post_request($url, $arguments);
 }
 
 // server/create_ipv4
 
-// server/destroy
+function server_destroy ($subid) {
+ $url = "https://api.vultr.com/v1/server/destroy";
+ $data = array('SUBID' => $subid);
+ return post_request($url, $data);
+}
 
 // server/destroy_ipv4
 
@@ -275,5 +223,5 @@ function all_regions_availability () {
  return $result;
 }
 
-echo server_create("DCID=6", "VPSPLANID=29", "OSID=167", "label=test");
+echo json_pretty(account_info());
 ?>
