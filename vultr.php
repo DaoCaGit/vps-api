@@ -222,6 +222,4 @@ function all_regions_availability () {
  }
  return $result;
 }
-
-echo json_pretty(account_info());
 ?>
