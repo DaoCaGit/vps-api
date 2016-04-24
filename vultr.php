@@ -57,8 +57,8 @@ class vultr_api extends http_requests {
  }
  
  public function regions_list () {
-  $url = "https://api.vultr.com/v1/regions/list";
-  return get($url);
+  parent::get("https://api.vultr.com/v1/regions/list");
+  return $this->response;
  }
  
  
@@ -79,8 +79,8 @@ class vultr_api extends http_requests {
  // server/app_change_list
  
  public function server_bandwidth ($subid) {
-  $url = "https://api.vultr.com/v1/server/bandwidth?SUBID=$subid";
-  return keyget($url); 
+  parent::keyget("https://api.vultr.com/v1/server/bandwidth?SUBID=$subid");
+  return $this->response;
  }
  
  public function server_create ($arguments) {
@@ -102,8 +102,8 @@ class vultr_api extends http_requests {
  // server/destroy_ipv4
  
  public function server_get_user_data ($subid) {
-  $url = "https://api.vultr.com/v1/server/get_user_data?SUBID=$subid";
-  return keyget($url);
+  parent::keyget("https://api.vultr.com/v1/server/get_user_data?SUBID=$subid");
+  return $this->response;
  }
  
  // server/halt
@@ -111,30 +111,30 @@ class vultr_api extends http_requests {
  // server/label_set
  
  public function server_list () {
-  $url = "https://api.vultr.com/v1/server/list";
-  return keyget($url);
+  parent::keyget("https://api.vultr.com/v1/server/list");
+  return $this->response;
  }
  
  public function server_list_ipv4 ($subid) {
-  $url = "https://api.vultr.com/v1/server/list_ipv4?SUBID=$subid";
-  return keyget($url);
+  parent::keyget("https://api.vultr.com/v1/server/list_ipv4?SUBID=$subid");
+  return $this->response;
  }
  
  public function server_list_ipv6 ($subid) {
-  $url = "https://api.vultr.com/v1/server/list_ipv6?SUBID=$subid";
-  return keyget($url);
+  parent::keyget("https://api.vultr.com/v1/server/list_ipv6?SUBID=$subid");
+  return $this->response;
  }
  
  public function server_neighbors ($subid) {
-  $url = "https://api.vultr.com/v1/server/neighbors?SUBID=$subid";
-  return keyget($url);
+  parent::keyget("https://api.vultr.com/v1/server/neighbors?SUBID=$subid");
+  return $this->response;
  }
  
  // server/os_change
  
  public function server_os_change_list ($subid) {
-  $url = "https://api.vultr.com/v1/server/os_change_list?SUBID=$subid";
-  return keyget($url);
+  parent::keyget("https://api.vultr.com/v1/server/os_change_list?SUBID=$subid");
+  return $this->response;
  }
  
  // server/reboot
@@ -150,8 +150,8 @@ class vultr_api extends http_requests {
  // server/reverse_delete_ipv6
  
  public function server_reverse_list_ipv6 ($subid) {
-  $url = "https://api.vultr.com/v1/server/reverse_list_ipv6?SUBID=$subid";
-  return keyget($url);
+  parent::keyget("https://api.vultr.com/v1/server/reverse_list_ipv6?SUBID=$subid");
+  return $this->response;
  }
  
  // server/reverse_set_ipv4
@@ -165,8 +165,8 @@ class vultr_api extends http_requests {
  // server/upgrade_plan
  
  public function server_upgrade_plan_list ($subid) {
-  $url = "https://api.vultr.com/v1/server/upgrade_plan_list?SUBID=$subid";
-  return keyget($url);
+  parent::keyget("https://api.vultr.com/v1/server/upgrade_plan_list?SUBID=$subid");
+  return $this->response;
  }
  
  // snapshot/create
@@ -174,8 +174,8 @@ class vultr_api extends http_requests {
  // snapshot/destroy
  
  public function snapshot_list () {
-  $url = "https://api.vultr.com/v1/snapshot/list";
-  return keyget($url);
+  parent::keyget("https://api.vultr.com/v1/snapshot/list");
+  return $this->response;
  }
  
  // sshkey/create
@@ -183,8 +183,8 @@ class vultr_api extends http_requests {
  // sshkey/destroy
  
  public function sshkey_list () {
-  $url = "https://api.vultr.com/v1/sshkey/list";
-  return keyget($url);
+  parent::keyget("https://api.vultr.com/v1/sshkey/list");
+  return $this->response;
  }
  
  // sshkey/update
@@ -194,8 +194,8 @@ class vultr_api extends http_requests {
  // startupscript/destroy
  
  public function startupscript_list () {
-  $url = "https://api.vultr.com/v1/startupscript/list";
-  return keyget($url);
+  parent::keyget("https://api.vultr.com/v1/startupscript/list");
+  return $this->response;
  }
  
  // startupscript/update
@@ -205,8 +205,8 @@ class vultr_api extends http_requests {
  // user/delete
  
  public function user_list () {
-  $url = "https://api.vultr.com/v1/user/list";
-  return keyget($url);
+  parent::keyget("https://api.vultr.com/v1/user/list");
+  return $this->response;
  }
  
  // user/update
@@ -214,10 +214,10 @@ class vultr_api extends http_requests {
  // Functions that combine the above basic ones
  
  public function all_regions_availability () {
-  $regions = regions_list();
+  $regions = $this->regions_list();
   $regions = json_decode($regions, true);
   foreach($regions as $dcid => $stuff) {
-   $availability = regions_availability($dcid);
+   $availability = $this->regions_availability($dcid);
    $result[$dcid] = $availability;
   }
   return $result;

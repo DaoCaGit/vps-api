@@ -1,16 +1,13 @@
 <?php
 
+// Don't use this function except for debugging. Even when debugging, it sometimes hides the output. 
 function json_pretty ($notpretty) {
  $pretty = json_decode($notpretty);
  $pretty = json_encode($pretty, JSON_PRETTY_PRINT);
- if (is_string($pretty) && is_array(json_decode($pretty, true))) {
-  return $pretty;
- } else {
-  return $notpretty;
- }
+ return $pretty;
 }
 
-function performcurl($opts) {
+function performcurl ($opts) {
  $ci = curl_init();
  curl_setopt_array($ci, $opts);
  $response = curl_exec($ci);
