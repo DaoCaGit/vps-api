@@ -22,19 +22,62 @@ class vultr_api extends http_requests {
   return $this->response;
  }
  
- // dns/create_domain
+ public function dns_create_domain ($domain, $serverip) {
+  $arguments = array(
+   "domain"=>$domain,
+   "serverip"=>$serverip,
+  );
+  parent::post("https://api.vultr.com/v1/dns/create_domain", $arguments);
+  return $this->response;
+ }
  
- // dns/create_record
+ public function dns_create_record ($args) {
+  if (!(array_key_exists('domain', $args) && array_key_exists('name', $args) && array_key_exists('type', $args) && array_key_exists('data', $args))) {
+   exit("dns_create_record requires arguments: domain, name, type, and data\n");
+  }
+  if ((($args['type'] == "MX") or ($args['type'] == "SRV")) and !(array_key_exists('priority'))) {
+   exit("MX and SRV records require a priority");
+  }
+
+  parent::post("https://api.vultr.com/v1/dns/create_record", $args);
+  return $this->response;
+ }
  
- // dns/delete_domain
+ public function dns_delete_domain ($domain) {
+  parent::post("https://api.vultr.com/v1/dns/delete_domain", $domain);
+  return $this->response;
+ }
  
- // dns/delete_record
+ public function dns_delete_record ($arg) {
+  if (is_string($arg)) {
+   $arg = array('domain'=>$arg);
+  } if (is_int($arg)) {
+   $arg = array('RECORDID'=>$arg);
+  }
+  parent::post("https://api.vultr.com/v1/dns/delete_record", $arg);
+  return $this->response;
+ }
  
- // dns/list
+ public function dns_list () {
+  parent::keyget("https://api.vultr.com/v1/dns/list");
+  return $this->response;
+ }
  
- // dns/records
+ public function dns_records ($domain) {
+  parent::keyget("https://api.vultr.com/v1/dns/records?domain=$domain");
+  return $this->response;
+ }
  
- // dns/update_record
+ public function dns_update_record ($args) {
+  if (!(array_key_exists('domain', $args) && array_key_exists('RECORDID', $args))) {
+   exit("dns_update_recrd requires arguments: domain and RECORDID");
+  }
+  if ((($args['type'] == "MX") or ($args['type'] == "SRV")) and !(array_key_exists('priority'))) {
+   exit("MX and SRV records require a priority");
+  }
+  parent::post("https://api.vultr.com/v1/dns/update_record", $args);
+  return $this->response;
+ }
  
  public function iso_list () {
   parent::keyget("https://api.vultr.com/v1/iso/list");
