@@ -1,32 +1,31 @@
 <?php
 
-// Don't use this function except for debugging. Even when debugging, it sometimes hides the output. 
+// Don't use json_pretty function except for debugging. When debugging, know that it sometimes hides the output. If there is no output, it returns "null".
 function json_pretty ($notpretty) {
  $pretty = json_decode($notpretty);
  $pretty = json_encode($pretty, JSON_PRETTY_PRINT);
  return $pretty;
 }
 
-function performcurl ($opts) {
- $ci = curl_init();
- curl_setopt_array($ci, $opts);
- $response = curl_exec($ci);
- $response_code = curl_getinfo($ci, CURLINFO_HTTP_CODE);
- curl_close($ci);
- if (is_null($response)) {
-  return $response_code;
- } else {
-  return $response;
- }
-}
-
 class http_requests {
 
  private $apikey = null; 
+ public $response = null;
+ public $response_code = null;
 
  public function __construct ($apikey) {
   $this->apikey = $apikey;
  }
+
+public function performcurl ($opts) {
+ $ci = curl_init();
+ curl_setopt_array($ci, $opts);
+ $this->response = curl_exec($ci);
+ $this->response_code = curl_getinfo($ci, CURLINFO_HTTP_CODE);
+ curl_close($ci);
+ return;
+ // This function produces $this->response and $this->response_code
+}
 
  public function get ($url) {
   $opts = array(
@@ -34,7 +33,7 @@ class http_requests {
    CURLOPT_RETURNTRANSFER => true,
    CURLOPT_POST => false,
   );
-  $this->response = performcurl($opts);
+  $this->performcurl($opts);
   return;
  }
  
