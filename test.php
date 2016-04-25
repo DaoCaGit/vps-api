@@ -14,7 +14,7 @@ $array = array(
 
 // IP Address: 192.30.131.156
 
-$test->app_list();
+$test->dns_delete_domain("tf2.global");
 echo json_pretty($test->response);
 echo "\n";
 echo $test->response_code;

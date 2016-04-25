@@ -18,7 +18,7 @@ class vultr_api extends http_requests {
   parent::keyget("https://api.vultr.com/v1/backup/list");
  }
  
- public function dns_create_domain ($domain, $serverip) {
+ public function dns_create_domain (string $domain, string $serverip) {
   $arguments = array(
    "domain"=>$domain,
    "serverip"=>$serverip,
@@ -26,7 +26,7 @@ class vultr_api extends http_requests {
   parent::post("https://api.vultr.com/v1/dns/create_domain", $arguments);
  }
  
- public function dns_create_record ($args) {
+ public function dns_create_record (array $args) {
   if (!(array_key_exists('domain', $args) && array_key_exists('name', $args) && array_key_exists('type', $args) && array_key_exists('data', $args))) {
    exit("dns_create_record requires arguments: domain, name, type, and data\n");
   }
@@ -36,28 +36,28 @@ class vultr_api extends http_requests {
   parent::post("https://api.vultr.com/v1/dns/create_record", $args);
  }
  
- public function dns_delete_domain ($domain) {
-  parent::post("https://api.vultr.com/v1/dns/delete_domain", $domain);
+ public function dns_delete_domain (string $domain) {
+  $args = array('domain'=>$domain);
+  parent::post("https://api.vultr.com/v1/dns/delete_domain", $args);
  }
  
- public function dns_delete_record ($arg) {
-  if (is_string($arg)) {
-   $arg = array('domain'=>$arg);
-  } if (is_int($arg)) {
-   $arg = array('RECORDID'=>$arg);
-  }
-  parent::post("https://api.vultr.com/v1/dns/delete_record", $arg);
+ public function dns_delete_record (string $domain, int $recordid) {
+  $args = array(
+   'domain'=>$domain,
+   'RECORDID'=>$recordid,
+  );
+  parent::post("https://api.vultr.com/v1/dns/delete_record", $args);
  }
  
  public function dns_list () {
   parent::keyget("https://api.vultr.com/v1/dns/list");
  }
  
- public function dns_records ($domain) {
+ public function dns_records (string $domain) {
   parent::keyget("https://api.vultr.com/v1/dns/records?domain=$domain");
  }
  
- public function dns_update_record ($args) {
+ public function dns_update_record (array $args) {
   if (!(array_key_exists('domain', $args) && array_key_exists('RECORDID', $args))) {
    exit("dns_update_recrd requires arguments: domain and RECORDID");
   }
@@ -76,14 +76,13 @@ class vultr_api extends http_requests {
   parent::get("https://api.vultr.com/v1/plans/list");
  }
  
- public function regions_availability ($dcid) {
+ public function regions_availability (int $dcid) {
   parent::keyget("https://api.vultr.com/v1/regions/availability?DCID=$dcid");
  }
  
  public function regions_list () {
   parent::get("https://api.vultr.com/v1/regions/list");
  }
- 
  
  // reservedip/attach
  
@@ -101,27 +100,27 @@ class vultr_api extends http_requests {
  
  // server/app_change_list
  
- public function server_bandwidth ($subid) {
+ public function server_bandwidth (int $subid) {
   parent::keyget("https://api.vultr.com/v1/server/bandwidth?SUBID=$subid");
  }
  
- public function server_create ($arguments) {
-  if (!(array_key_exists('DCID', $arguments) and array_key_exists('VPSPLANID', $arguments) and array_key_exists('OSID', $arguments))) {
+ public function server_create (array $args) {
+  if (!(array_key_exists('DCID', $args) and array_key_exists('VPSPLANID', $args) and array_key_exists('OSID', $args))) {
    exit("server_create requires arguments: DCID, VPSPLANID, and OSID\n");
   }
-  parent::post("https://api.vultr.com/v1/server/create", $arguments);
+  parent::post("https://api.vultr.com/v1/server/create", $args);
  }
  
  // server/create_ipv4
  
- public function server_destroy ($subid) {
+ public function server_destroy (int $subid) {
   $subid = array('SUBID' => $subid);
   parent::post("https://api.vultr.com/v1/server/destroy", $subid);
  }
  
  // server/destroy_ipv4
  
- public function server_get_user_data ($subid) {
+ public function server_get_user_data (int $subid) {
   parent::keyget("https://api.vultr.com/v1/server/get_user_data?SUBID=$subid");
  }
  
@@ -133,21 +132,21 @@ class vultr_api extends http_requests {
   parent::keyget("https://api.vultr.com/v1/server/list");
  }
  
- public function server_list_ipv4 ($subid) {
+ public function server_list_ipv4 (int $subid) {
   parent::keyget("https://api.vultr.com/v1/server/list_ipv4?SUBID=$subid");
  }
  
- public function server_list_ipv6 ($subid) {
+ public function server_list_ipv6 (int $subid) {
   parent::keyget("https://api.vultr.com/v1/server/list_ipv6?SUBID=$subid");
  }
  
- public function server_neighbors ($subid) {
+ public function server_neighbors (int $subid) {
   parent::keyget("https://api.vultr.com/v1/server/neighbors?SUBID=$subid");
  }
  
  // server/os_change
  
- public function server_os_change_list ($subid) {
+ public function server_os_change_list (int $subid) {
   parent::keyget("https://api.vultr.com/v1/server/os_change_list?SUBID=$subid");
  }
  
@@ -163,7 +162,7 @@ class vultr_api extends http_requests {
  
  // server/reverse_delete_ipv6
  
- public function server_reverse_list_ipv6 ($subid) {
+ public function server_reverse_list_ipv6 (int $subid) {
   parent::keyget("https://api.vultr.com/v1/server/reverse_list_ipv6?SUBID=$subid");
  }
  
@@ -177,7 +176,7 @@ class vultr_api extends http_requests {
  
  // server/upgrade_plan
  
- public function server_upgrade_plan_list ($subid) {
+ public function server_upgrade_plan_list (int $subid) {
   parent::keyget("https://api.vultr.com/v1/server/upgrade_plan_list?SUBID=$subid");
  }
  

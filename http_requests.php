@@ -34,7 +34,6 @@ public function performcurl ($opts) {
    CURLOPT_POST => false,
   );
   $this->performcurl($opts);
-  return;
  }
  
  public function keyget ($url) {
@@ -44,8 +43,7 @@ public function performcurl ($opts) {
    CURLOPT_POST => false,
    CURLOPT_HTTPHEADER => array("API-Key: $this->apikey"),
   );
-  $this->response = performcurl($opts);
-  return;
+  $this->performcurl($opts);
  }
  
  public function post ($url, $data) {
@@ -56,7 +54,7 @@ public function performcurl ($opts) {
    CURLOPT_HTTPHEADER => array("API-Key: $this->apikey"),
    CURLOPT_POSTFIELDS => http_build_query($data),
   );
-  $this->response = performcurl($opts);
+  $this->performcurl($opts);
   return;
  }
  
