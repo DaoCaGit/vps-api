@@ -35,8 +35,8 @@ class vultr_api extends http_requests {
   if (!(array_key_exists('domain', $args) && array_key_exists('name', $args) && array_key_exists('type', $args) && array_key_exists('data', $args))) {
    exit("dns_create_record requires arguments: domain, name, type, and data\n");
   }
-  if ((($args['type'] == "MX") or ($args['type'] == "SRV")) and !(array_key_exists('priority'))) {
-   exit("MX and SRV records require a priority");
+  if ((strnatcasecmp($args['type'], "MX")) or (strnatcasecmp($args['type'], "SRV")) and !(array_key_exists('priority'))) {
+   exit("MX and SRV records require a priority\n");
   }
   parent::post("https://api.vultr.com/v1/dns/create_record", $args);
   return $this->response;
