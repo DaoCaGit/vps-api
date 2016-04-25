@@ -13,21 +13,20 @@ class http_requests {
  public $response = null;
  public $response_code = null;
 
- public function __construct ($apikey) {
+ public function __construct (string $apikey) {
   $this->apikey = $apikey;
  }
 
-public function performcurl ($opts) {
+public function performcurl (array $opts) {
  $ci = curl_init();
  curl_setopt_array($ci, $opts);
  $this->response = curl_exec($ci);
  $this->response_code = curl_getinfo($ci, CURLINFO_HTTP_CODE);
  curl_close($ci);
- return;
  // This function produces $this->response and $this->response_code
 }
 
- public function get ($url) {
+ public function get (string $url) {
   $opts = array(
    CURLOPT_URL => $url,
    CURLOPT_RETURNTRANSFER => true,
@@ -36,7 +35,7 @@ public function performcurl ($opts) {
   $this->performcurl($opts);
  }
  
- public function keyget ($url) {
+ public function keyget (string $url) {
   $opts = array(
    CURLOPT_URL => $url,
    CURLOPT_RETURNTRANSFER => true,
@@ -46,7 +45,7 @@ public function performcurl ($opts) {
   $this->performcurl($opts);
  }
  
- public function post ($url, $data) {
+ public function post (string $url, array $data) {
   $opts = array(
    CURLOPT_URL => $url,
    CURLOPT_RETURNTRANSFER => true,
