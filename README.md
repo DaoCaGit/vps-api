@@ -23,7 +23,7 @@ An APIKEY is always required, since this class was written with the intention of
 
 ### json_pretty()
 
-**json_pretty** - Formats unformatted JSON with whitespace (spaces, tabs, and newlines).
+**json_pretty** - Formats unformatted JSON.
 
 It is important to note that this function was intended for debugging purposes only. Even when debugging, it sometimes hides the output. If there is no output, it returns "null".
 
@@ -86,11 +86,11 @@ curl -w "%{http_code}" -H 'API-Key: APIKEY' "https://api.vultr.com/v1/server/lis
 
 EXAMPLE:
 ```php
-array(
+$data = array(
  'SUBID'=>123456,
  'label'=>"Example label",
 );
-$request->post("https://api.vultr.com/v1/server/label_set");
+$request->post("https://api.vultr.com/v1/server/label_set", $data);
 echo $request->response;
 echo $request->response_code;
 ```
