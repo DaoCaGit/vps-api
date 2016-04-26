@@ -44,15 +44,36 @@ It is important to note that this function was intended for debugging purposes o
 **url** - URL indicating the location of the content you want to get.
 
 EXAMPLE:
-
 ```php
 $request->get("https://api.vultr.com/v1/os/list");
-echo $request->response;
+echo json_pretty($request->response);
+echo "\n";
 echo $request->response_code;
 ```
 
-A similar cURL command could be:
+EXAMPLE RESPONSE: 
 
+```json
+{
+    "127": {
+        "OSID": "127",
+        "name": "CentOS 6 x64",
+        "arch": "x64",
+        "family": "centos",
+        "windows": false
+    },
+    "148": {
+        "OSID": "148",
+        "name": "Ubuntu 12.04 i386",
+        "arch": "i386",
+        "family": "ubuntu",
+        "windows": false
+    }
+}
+200
+```
+
+A similar cURL command could be:
 ```shell
 curl -w "%{http_code}" "https://api.vultr.com/v1/os/list"
 ```
@@ -68,8 +89,53 @@ curl -w "%{http_code}" "https://api.vultr.com/v1/os/list"
 EXAMPLE:
 ```php
 $request->keyget("https://api.vultr.com/v1/server/list");
-echo $request->response;
+echo json_pretty($request->response);
+echo "\n";
 echo $request->response_code;
+```
+
+EXAMPLE RESPONSE:
+```json
+{
+    "576965": {
+        "SUBID": "576965",
+        "os": "CentOS 6 x64",
+        "ram": "4096 MB",
+        "disk": "Virtual 60 GB",
+        "main_ip": "123.123.123.123",
+        "vcpu_count": "2",
+        "location": "New Jersey",
+        "DCID": "1",
+        "default_password": "nreqnusibni",
+        "date_created": "2013-12-19 14:45:41",
+        "pending_charges": "46.67",
+        "status": "active",
+        "cost_per_month": "10.05",
+        "current_bandwidth_gb": 131.512,
+        "allowed_bandwidth_gb": "1000",
+        "netmask_v4": "255.255.255.248",
+        "gateway_v4": "123.123.123.1",
+        "power_status": "running",
+        "server_state": "ok",
+        "VPSPLANID": "28",
+        "v6_network": "2001:DB8:1000::",
+        "v6_main_ip": "2001:DB8:1000::100",
+        "v6_network_size": "64",
+        "v6_networks": [
+            {
+                "v6_network": "2001:DB8:1000::",
+                "v6_main_ip": "2001:DB8:1000::100",
+                "v6_network_size": "64"
+            }
+        ],
+        "label": "my new server",
+        "internal_ip": "10.99.0.10",
+        "kvm_url": "https://my.vultr.com/subs/novnc/api.php?data=eawxFVZw2mXnhGUV",
+        "auto_backups": "yes",
+        "tag": "mytag"
+    }
+}
+200
 ```
 
 A similar cURL command could be:
@@ -99,8 +165,12 @@ echo $request->response;
 echo $request->response_code;
 ```
 
-A similar cURL command could be:
+EXAMPLE RESPONSE:
+```
+200
+```
 
+A similar cURL command could be:
 ```shell
 curl -w "%{http_code}" -H 'API-Key: APIKEY' --data "SUBID=123456" --data-urlencode 'label=Example label'
 ```
