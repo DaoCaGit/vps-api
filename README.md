@@ -3,6 +3,8 @@ This repository contains classes for various VPS hosting providers' API's. This 
 Because all classes extend the http_requests class, http_requests.php must be required, in addition to the file containing the class you want to use. Example:
 
 ```php
+<?php
+
 require_once("http_requests.php");
 require_once("vultr.php");
 ```
@@ -14,6 +16,8 @@ require_once("vultr.php");
 Here is an example of how to instantiate the http_requests class:
 
 ```php
+<?php
+
 require_once("http_requests.php");
 $request = new http_requests("APIKEY");
 ```
@@ -45,6 +49,8 @@ It is important to note that this function was intended for debugging purposes o
 
 EXAMPLE:
 ```php
+<?php
+
 $request->get("https://api.vultr.com/v1/os/list");
 echo json_pretty($request->response);
 echo "\n";
@@ -88,6 +94,8 @@ curl -w "%{http_code}" "https://api.vultr.com/v1/os/list"
 
 EXAMPLE:
 ```php
+<?php
+
 $request->keyget("https://api.vultr.com/v1/server/list");
 echo json_pretty($request->response);
 echo "\n";
@@ -156,6 +164,8 @@ curl -w "%{http_code}" -H 'API-Key: APIKEY' "https://api.vultr.com/v1/server/lis
 
 EXAMPLE:
 ```php
+<?php
+
 $data = array(
  'SUBID'=>123456,
  'label'=>"Example label",
