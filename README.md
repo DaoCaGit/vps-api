@@ -9,8 +9,6 @@ require_once("vultr.php");
 
 ## http_requests.php
 
-A response and an HTTP status code can be requested from any function in http_requests, with the exception of json_pretty().
-
 ### Instantiating the class
 
 Here is an example of how to instantiate the http_requests class:
@@ -20,6 +18,11 @@ require_once("http_requests.php");
 $request = new http_requests("APIKEY");
 ```
 An APIKEY is always required, since this class was written with the intention of other classes extending it, each with their own VPS API functions. It is not recommended for use outside of this scope, particularly not the keyget() or post() functions. 
+
+After a function is passed, two possible values can be pulled from the class:
+
+- response (per the example, `$request->response`) - The string returned from the request.
+- response_code (per the example, `$request->response`) - The HTTP status code.
 
 ### json_pretty()
 
