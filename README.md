@@ -180,6 +180,8 @@ EXAMPLE RESPONSE:
 200
 ```
 
+Important note: There are some API requests, such as the the Vultr one used in the example above, that do not return a string. With requests like these, it is good practice to confirm the HTTP response code to ensure the request completed.
+
 A similar cURL command could be:
 ```shell
 curl -w "%{http_code}" -H 'API-Key: APIKEY' --data "SUBID=123456" --data-urlencode 'label=Example label'
