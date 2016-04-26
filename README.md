@@ -1,6 +1,6 @@
 This repository contains classes for various VPS hosting providers' API's. This README.md file contains documentation for just the http_requests class. A different .md file will be created to document the usage of each class. Refer to the approriate .md file for documentation on whichever class you wish to use.
 
-Because all classes extend the http_requests class, http_requests.php must be required, in addition to the file containing the class you want to use. Example:
+Because all classes extend the http_requests class, http_requests.php must be required in addition to the file containing the class you want to use. Example:
 
 ```php
 <?php
@@ -185,4 +185,4 @@ A similar cURL command could be:
 curl -w "%{http_code}" -H 'API-Key: APIKEY' --data "SUBID=123456" --data-urlencode 'label=Example label'
 ```
 
-Important note: There are some API requests, such as the the Vultr one used in the example above, that do not return a string. With requests like these, it is good practice to confirm the HTTP response code to ensure the request completed.
+Important note: There are some API requests, such as the the Vultr one used in the example above, that do not return a string. With requests like these, it is good practice to confirm the HTTP response code to ensure the request completed successfully.
