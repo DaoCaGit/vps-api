@@ -17,9 +17,10 @@ Here is an example of how to instantiate the http_requests class:
 require_once("http_requests.php");
 $request = new http_requests("APIKEY");
 ```
-An APIKEY is always required, since this class was written with the intention of other classes extending it, each with their own VPS API functions. It is not recommended for use outside of this scope, particularly not the keyget() or post() functions. 
 
-After a function is passed, two possible values can be pulled from the class:
+Because this class was written with the intention of using it with VPS API's, an API key is always required. It is not recommended for this class to be used where an API key is unnecessary.
+
+After a function is run, two possible values can be pulled from the class:
 
 - response (per the example, `$request->response`) - The string returned from the request.
 - response_code (per the example, `$request->response`) - The HTTP status code.
