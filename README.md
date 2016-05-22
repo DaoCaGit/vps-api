@@ -1,4 +1,4 @@
-This repository contains classes for various VPS hosting providers' API's. This README.md file contains documentation for just the http_requests class. A different .md file will be created to document the usage of each class. Refer to the approriate .md file for documentation on whichever class you wish to use.
+This repository contains (or will contain) classes for various VPS hosting providers' API's. This README.md file contains documentation for just the http_requests class. A different .md file will be created to document the usage of each class. Refer to the approriate .md file for documentation on whichever class you wish to use.
 
 Because all classes extend the http_requests class, http_requests.php must be required in addition to the file containing the class you want to use. Example:
 
@@ -27,7 +27,7 @@ Because this class was written with the intention of using it with VPS API's, an
 After a function is run, two possible values can be pulled from the class:
 
 - response (per the example, `$request->response`) - The string returned from the request.
-- response_code (per the example, `$request->response`) - The HTTP status code.
+- response_code (per the example, `$request->response_code`) - The HTTP status code.
 
 ### json_pretty()
 
