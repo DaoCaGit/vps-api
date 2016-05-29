@@ -1,4 +1,6 @@
-This repository contains (or will contain) classes for various VPS hosting providers' API's. This README.md file contains documentation for just the http_requests class. A different .md file will be created to document the usage of each class. Refer to the approriate .md file for documentation on whichever class you wish to use.
+This repository contains (or will contain) classes for various VPS hosting providers' API's. So far I've only done Vultr. I probably won't add any more of them anytime soon, since most of the major VPS providers have their own official PHP libraries.
+
+This README.md file contains documentation for just the http_requests class. I'll write documentation specific to the vultr class later.
 
 Because all classes extend the http_requests class, http_requests.php must be required in addition to the file containing the class you want to use. Example:
 
